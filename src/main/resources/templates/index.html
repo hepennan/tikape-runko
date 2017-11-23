@@ -2,15 +2,18 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
     <head>
-        <title>Otsikko</title>
+        <title>Reseptit</title>
         <meta charset="utf-8" />
     </head>
 
     <body>
-        <h1>Heippa vaan!</h1>
+        <h1>HELENAN PARHAAT RESEPTIT</h1>
+        <ol>
 
-        <p>Ja .. <span th:text="${viesti}">jotain?</span></p>
-
-        <p><a href="/opiskelijat">Tästä opiskelijalistaukseen.</a></p>
+        <li th:each="resepti : ${reseptit}"><a th:href="@{~/resepti_view/{id}(id=${resepti.id})}"><span th:text="${resepti.nimi}">jotain?</span></a></li>
+        </ol>
+        
+        <a href="/reseptit"><p>P&auml;ivit&auml; reseptej&auml;</p></a>
+        <a href="/raakaaineet"><p>Tarkastele ja p&auml;ivit&auml; raaka-aineita</p></a>
     </body>
 </html>
