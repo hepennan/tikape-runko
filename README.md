@@ -5,9 +5,9 @@ https://github.com/hepennan/tikape-runko
 
 
 
-HELENAN PARHAAT RESEPTIT sovellus
+#HELENAN PARHAAT RESEPTIT sovellus
 
-1. Etusivu
+##1. Etusivu
 
 Sovelluksella on etusivu, joka on nähtävissä sovelluksen juuripolussa (“/”).
 Etusivulla listataan sovellukseen tallennettujen reseptien nimet aakkosjärjestyksessä.
@@ -15,20 +15,20 @@ Jokainen reseptin nimi on linkki sivulle, joka näyttää kyseisen reseptin sis�
 Etusivulta on myös linkki reseptien päivitykseen ja raaka-aineiden tarkasteluun/päivitykseen.
 
 
-2. Reseptin tarkastelu "view" moodissa
+##2. Reseptin tarkastelu "view" moodissa
 
 Sivu näyttää reseptin nimen, ainekset ja yleisohjeen. Ainesten järjestys noudattaa reseptin kirjoittajan määrittelemää järjestystä.
 
-3. Raaka-aineiden tarkastelu ja muokkaus
+##3. Raaka-aineiden tarkastelu ja muokkaus
 
 Raaka-aineet sivulla kaikki raaka-aineet on listattuna aakkosjärjestyksessä. Käyttäjä voi lisätä uusia raaka-aineita ja poistaa jo tallennettuja.
 
-Raaka-ainetta poistettaessa sovellus tarkistaa onko kyseinen raaka-aine jo linkattu johonkin reseptiin. Jos on, poistaminen ei onnistu. 
-Huom. poista-nappi on kuitenkin näkyvissä raaka-aineen kohdalla. Oikeassa sovelluksessa poista-nappi tulisi olla disabloituna näissä tapauksissa.
+Raaka-ainetta poistettaessa sovellus tarkistaa onko kyseinen raaka-aine jo linkattu johonkin reseptiin. Jos on, poistamista ei tehdä. 
+Huom. poista-nappi on kuitenkin näkyvissä raaka-aineen kohdalla.
 
 Raaka-ainetta lisätessä sovellus tarkistaa onko saman niminen raaka-aine tallennettu jo aikaisemmin. Jos on, lisääminen ei onnistu.
 
-4. Reseptien listaus "edit" moodissa
+##4. Reseptien listaus "edit" moodissa
 
 Sivu näyttää listauksen resepteistä aakkosjärjestyksessä. 
 Käyttäjä voi poistaa reseptin, jolloin resepti ja kaikki reseptiin liittyvät ohjerivit poistetaan tietokannasta.
@@ -37,7 +37,7 @@ Jokainen reseptin nimi on linkki reseptin muokkaussivulle.
 
 Käyttäjä voi antaa uuden reseptin nimen ja pääsee reseptin muokkaussivulle päivittämään reseptiä.
 
-5. Reseptin muokkaus
+##5. Reseptin muokkaus
 
 Reseptin muokkaus sivu listaa reseptin ainekset ja määrät käyttäjän määrittelemässä järjestyksesä.
 Käyttäjä voi poistaa aineksia listalta.
