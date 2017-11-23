@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Reseptit</title>
+        <meta charset="utf-8" />
+    </head>
+    
+    <body>
+        <h1 th:text="${resepti.nimi}">Reseptin nimi</h1>
+
+
+        <h3>Ainekset</h3>
+        
+        
+        <ul>
+            <li th:each="rivi : ${ohjeRivit}">
+                <form action="/poistarivi" method="POST">
+                <span th:text="${rivi.rivinumero}">rivinumero</span>
+                <span th:text="${rivi.raakaAine.nimi}">raaka-aine nimi</span>
+                <span th:text="${rivi.maara}">määrä</span>
+                <input type ="hidden" name="riviid" th:value ="${rivi.id}"/>
+
+                <input type="hidden" name="reseptinumero" th:value="${resepti.id}"/>
+                <input type ="submit" value="Poista"/>
+                </form>
+                
+            </li>
+        </ul> 
+        
+        <br/>
+        <h3>Ohje</h3>
+        <span th:text="${resepti.ohje}">reseptin ohje</span>
+        
+        <br/>
+        <br/>
+        <table>
+            <th>Raaka-aine</th><th>M&auml;&auml;r&auml;</th><th>Rivinumero</th><th></th>
+            <tr>
+                <form action="/lisaarivi" method="POST">
+                    <td><select name="raakaAine">
+                        <option th:each="raakaAine: ${raakaAineet}" th:value="${raakaAine.id}" th:text="${raakaAine.nimi}">
+                            raaka-aine
+                        </option>
+                    </select></td>
+                    <td><input type ="text" name="maara"/></td>
+                    <td><input type ="text" name="rivinumero"/><input type="hidden" name="reseptinumero" th:value="${resepti.id}"/></td>
+                    <td><input type="submit" value="Lis&auml;&auml; ohjerivi!"/></td>
+                    
+                </form> 
+            </tr>
+            
+        </table>
+        
+      <form action = "/lisaaohje" method="POST">
+          <b>Ohje :</b> <br />
+         <textarea rows = "5" cols = "50" name = "ohje" th:text="${resepti.ohje}">
+           
+         </textarea>
+          <input type="hidden" name="reseptinumero" th:value="${resepti.id}"/>
+          <input type="submit" value="P&auml;ivit&auml;!"/>
+      </form>
+        <a href="/"><p>Reseptilistaukseen</p></a>
+        <a href="/raakaaineet"><p>Tarkastele ja lis&auml;&auml; aineksia</p></a>
+ 
+
+    </body>
+</html>

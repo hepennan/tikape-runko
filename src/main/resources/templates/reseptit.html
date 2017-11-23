@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+
+    <head>
+        <title>Reseptit</title>
+        <meta charset="utf-8" />
+    </head>
+
+    <body>
+        <h1>RESEPTIT</h1>
+        <ol>
+            <li th:each="resepti : ${reseptit}"><a th:href="@{~/reseptit/{id}(id=${resepti.id})}"><span th:text="${resepti.nimi}">jotain?</span></a> 
+        <form th:action="@{~/reseptit/{id}/poista(id=${resepti.id})}" method="post">
+            <input type="submit" name = "poista" value="Poista"/>
+        </form> 
+            </li>
+        </ol>
+        <br/>
+        
+        <form method="POST" action ="/reseptit/lisaa">
+              <input type ="text" name ="nimi"/><br/>
+            <input type ="submit" value ="Lis&auml;&auml; uusi resepti!"/>
+        </form>
+        <br/>
+<a href="/raakaaineet"><p>Tarkastele ja lis&auml;&auml; aineksia</p></a>
+    </body>
+</html>
