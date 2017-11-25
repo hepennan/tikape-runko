@@ -7,18 +7,16 @@ package tikape.runko.domain;
 
 /**
  *
- * @author Matti
+ * @author Helena
  */
 public class OhjeRivi {
     private RaakaAine raakaAine;
-//    private String ohje;
     private String maara;
     private int rivinumero;
     private int id;
     
     public OhjeRivi(int id, RaakaAine raakaAine, String maara, int rivinumero){
         this.raakaAine = raakaAine;
-//        this.ohje = ohje;
         this.maara = maara;
         this.rivinumero = rivinumero;
         this.id = id;

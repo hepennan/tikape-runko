@@ -46,6 +46,7 @@ public class ReseptiDao implements Dao<Resepti, Integer>{
         
     }
 
+    //palauttaa kaikki reseptit aakkosjärjestyksessä
     @Override
     public List<Resepti> findAll() throws SQLException {
         List<Resepti> reseptit = new ArrayList<>();
@@ -65,6 +66,7 @@ public class ReseptiDao implements Dao<Resepti, Integer>{
         return reseptit;
     }
 
+    //kutsuu metodia joka deletoi kaikki reseptiin linkatut ohjerivit ja deletoi reseptin
     @Override
     public void delete(Integer key) throws SQLException {
         try(Connection conn = this.database.getConnection()){
@@ -75,6 +77,7 @@ public class ReseptiDao implements Dao<Resepti, Integer>{
         }
     }
     
+    //jos reseptiä ei löydy samalla nimellä, lisää uuden reseptin
     public Resepti addNew(String reseptiNimi)throws SQLException{
         Resepti resepti = null;
         try(Connection conn = database.getConnection()){
@@ -91,6 +94,7 @@ public class ReseptiDao implements Dao<Resepti, Integer>{
         
     }
     
+    //etsii reseptin nimen perusteella
     public Resepti findByNimi(String key) throws SQLException {
         Resepti resepti = null;
         try(Connection conn = database.getConnection()){
@@ -112,6 +116,7 @@ public class ReseptiDao implements Dao<Resepti, Integer>{
         
     }
     
+    //päivittää reseptin ohjetekstin
     public void paivitaReseptinOhje (int id, String ohje) throws SQLException{
         try(Connection conn = database.getConnection()){
             PreparedStatement stmt = conn.prepareStatement("UPDATE Resepti SET ohje = ? where id =?");

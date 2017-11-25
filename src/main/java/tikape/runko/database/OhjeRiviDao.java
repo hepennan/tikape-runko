@@ -30,6 +30,8 @@ public class OhjeRiviDao implements Dao<OhjeRivi, Integer>{
 
     }
 
+    
+    
     @Override
     public OhjeRivi findOne(Integer key) throws SQLException {
         OhjeRivi ohjeRivi = null;
@@ -69,7 +71,7 @@ public class OhjeRiviDao implements Dao<OhjeRivi, Integer>{
         return ohjerivit;
     }
 
-
+//palauttaa ohjerivin reseptiId:n
     public int getReseptiId(Integer key) throws SQLException{
         try(Connection conn = database.getConnection()){
             PreparedStatement stmt = conn.prepareStatement("SELECT resepti_id FROM ReseptiRaakaAine WHERE id=?");
@@ -83,6 +85,8 @@ public class OhjeRiviDao implements Dao<OhjeRivi, Integer>{
         return -1;
     }
     
+    //poistaa kaikki reseptiin linkatut ohjerivit
+    //metodia kutsutaan silloin kun resepti deletoidaan
     public void deleteAllForResepti(Integer key) throws SQLException {
         try(Connection conn = database.getConnection()){
             PreparedStatement stmt = conn.prepareStatement("DELETE FROM ReseptiRaakaAine WHERE resepti_id = ?");
@@ -92,6 +96,7 @@ public class OhjeRiviDao implements Dao<OhjeRivi, Integer>{
         }
     }
     
+    //palauttaa kaikki ohjerivit reseptille
     public List<OhjeRivi> findAllForResepti (int reseptiId)throws SQLException {
         List<OhjeRivi> ohjerivit = new ArrayList<>();
         try(Connection conn = database.getConnection()){
@@ -113,6 +118,7 @@ public class OhjeRiviDao implements Dao<OhjeRivi, Integer>{
         
     }
     
+    //reseptille lisätään uusi ohjerivi
     public void addNew(OhjeRivi ohjerivi, int reseptiId) throws SQLException {
         try(Connection conn = database.getConnection()){
             if(reseptiRaakaAineExists(reseptiId, ohjerivi.getRaakaAine().getId())){
@@ -137,7 +143,7 @@ public class OhjeRiviDao implements Dao<OhjeRivi, Integer>{
         
     }
     
-
+//    päivittää ohjerivien numerot silloin kun reseptiin lisätään tai reseptistä poistetaan aineksia
     public void paivitaOhjeriviNumerot(int reseptiId, int start, int muutos) throws SQLException {
         try(Connection conn = database.getConnection()){
             PreparedStatement stmt;
@@ -157,6 +163,7 @@ public class OhjeRiviDao implements Dao<OhjeRivi, Integer>{
         try(Connection conn = database.getConnection()){
             int rivinumero = findOne(key).getRivinumero();
             int reseptiId = getReseptiId(key);
+            //rivinumeroiden järjestys päivitetään
             paivitaOhjeriviNumerot(reseptiId, rivinumero,-1);
             PreparedStatement stmt = conn.prepareStatement("DELETE FROM ReseptiRaakaAine WHERE id =?");
             stmt.setInt(1, key);

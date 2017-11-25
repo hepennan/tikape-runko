@@ -19,11 +19,9 @@ import tikape.runko.domain.RaakaAine;
  */
 public class RaakaAineDao implements Dao<RaakaAine,Integer>{
     private Database database;
-//    private OhjeRiviDao ohjerividao;
     
     public RaakaAineDao(Database database){
         this.database = database;
-        
     }
 
     @Override
@@ -45,6 +43,7 @@ public class RaakaAineDao implements Dao<RaakaAine,Integer>{
         return raakaAine;
     }
 
+//palauttaa kaikki raakaAineet aakkosjärjestyksessä
     @Override
     public List<RaakaAine> findAll() throws SQLException {
         List<RaakaAine> raakaAineet = new ArrayList<>();
@@ -61,6 +60,7 @@ public class RaakaAineDao implements Dao<RaakaAine,Integer>{
         return raakaAineet;
     }
 
+    //deletoi raakaAineen jos sitä ei ole linkattu johonkin reseptiin
     @Override
     public void delete(Integer key) throws SQLException {
         try(Connection conn = database.getConnection()){
@@ -73,6 +73,7 @@ public class RaakaAineDao implements Dao<RaakaAine,Integer>{
         }
     }
     
+    //tsekkaa kuuluuko raaka-aine johonkin reseptiin
     public boolean raakaAineKuuluuReseptiin(Integer key)throws SQLException{
         try(Connection conn = database.getConnection()){
             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM ReseptiRaakaAine WHERE raaka_aine_id = ?");
@@ -85,6 +86,7 @@ public class RaakaAineDao implements Dao<RaakaAine,Integer>{
         }
     }
     
+    //lisää raaka-aineen jos sitä ei löydy taulusta
     public RaakaAine add(RaakaAine lisattava) throws SQLException {
         try(Connection conn= this.database.getConnection()){
             RaakaAine raakaAine = this.findOneByNimi(lisattava.getNimi());
@@ -100,7 +102,7 @@ public class RaakaAineDao implements Dao<RaakaAine,Integer>{
         }
     }
     
-    
+    //etsii raaka-aineen nimen perusteella
     public RaakaAine findOneByNimi(String key) throws SQLException {
         RaakaAine raakaAine = null;
         try(Connection conn = database.getConnection()){
@@ -114,9 +116,6 @@ public class RaakaAineDao implements Dao<RaakaAine,Integer>{
             }
             
         }
-//        if(raakaAine==null){
-//            System.out.println("Raaka-aine not found!!");
-//        }
         return raakaAine;
     }
     
