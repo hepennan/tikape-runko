@@ -46,7 +46,7 @@ public class Database {
         lista.add("CREATE TABLE RaakaAine(\n" +
                     "id integer PRIMARY KEY,\n" +
                     "nimi varchar(200));");
-        lista.add("CREATE TABLE ReseptiRaakaAine(\n" +
+        lista.add("CREATE TABLE OhjeRivi(\n" +
                     "id integer PRIMARY KEY,\n"+
                     "raaka_aine_id integer,\n" +
                     "resepti_id integer,\n" +

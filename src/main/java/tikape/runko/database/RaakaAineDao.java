@@ -43,6 +43,8 @@ public class RaakaAineDao implements Dao<RaakaAine,Integer>{
         return raakaAine;
     }
 
+    
+
 //palauttaa kaikki raakaAineet aakkosjärjestyksessä
     @Override
     public List<RaakaAine> findAll() throws SQLException {
@@ -100,7 +102,7 @@ public class RaakaAineDao implements Dao<RaakaAine,Integer>{
     
     public boolean sisaltyyJonkonkinReseptiin(Integer key) throws SQLException {
         try(Connection conn = database.getConnection()){
-            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM ReseptiRaakaAine WHERE raaka_aine_id = ?");
+            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM OhjeRivi WHERE raaka_aine_id = ?");
             stmt.setInt(1, key);
             ResultSet res = stmt.executeQuery();
             if(res.next()){
@@ -127,7 +129,7 @@ public class RaakaAineDao implements Dao<RaakaAine,Integer>{
     //tsekkaa kuuluuko raaka-aine johonkin reseptiin
     public boolean raakaAineKuuluuReseptiin(Integer key)throws SQLException{
         try(Connection conn = database.getConnection()){
-            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM ReseptiRaakaAine WHERE raaka_aine_id = ?");
+            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM OhjeRivi WHERE raaka_aine_id = ?");
             stmt.setInt(1, key);
             ResultSet res = stmt.executeQuery();
             if(res.next()){

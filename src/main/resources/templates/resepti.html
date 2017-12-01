@@ -14,26 +14,26 @@ and open the template in the editor.
         <h1 th:text="${resepti.nimi}">Reseptin nimi</h1>
 
 
-        <h3>Ainekset</h3>
+        <h3>Valmistusaineet</h3>
         
         
-        <ul>
-            <li th:each="rivi : ${ohjeRivit}">
+        <table>
+            <tr th:each="rivi : ${ohjeRivit}">
                 <form action="/poistarivi" method="POST">
-                <span th:text="${rivi.rivinumero}">rivinumero</span>
-                <span th:text="${rivi.raakaAine.nimi}">raaka-aine nimi</span>
-                <span th:text="${rivi.maara}">määrä</span>
+                    <td><span th:text="${rivi.rivinumero}">rivinumero</span></td>
+                    <td><span th:text="${rivi.raakaAine.nimi}">raaka-aine nimi</span></td>
+                    <td><span th:text="${rivi.maara}">määrä</span></td>
                 <input type ="hidden" name="riviid" th:value ="${rivi.id}"/>
 
                 <input type="hidden" name="reseptinumero" th:value="${resepti.id}"/>
-                <input type ="submit" value="Poista"/>
+                <td><input type ="submit" value="Poista"/></td>
                 </form>
                 
-            </li>
-        </ul> 
+            </tr>
+        </table> 
         
         <br/>
-        <h3>Ohje</h3>
+        <h3>Valmistusohje</h3>
         <span th:text="${resepti.ohje}">reseptin ohje</span>
         
         <br/>
@@ -57,8 +57,8 @@ and open the template in the editor.
         </table>
         
       <form action = "/lisaaohje" method="POST">
-          <b>Ohje :</b> <br />
-         <textarea rows = "5" cols = "50" name = "ohje" th:text="${resepti.ohje}">
+          <b>Valmistusohje :</b> <br />
+         <textarea rows = "5" cols = "80" name = "ohje" th:text="${resepti.ohje}">
            
          </textarea>
           <input type="hidden" name="reseptinumero" th:value="${resepti.id}"/>

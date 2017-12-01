@@ -102,7 +102,6 @@ public class Main {
         //Ohjeen lisäys/päivitys reseptiin        
         Spark.post("/lisaaohje", (req,res)->{
             int reseptinumero = Integer.parseInt(req.queryParams("reseptinumero"));
-            System.out.println(req.queryParams("ohje"));
             reseptiDao.paivitaReseptinOhje(reseptinumero, req.queryParams("ohje"));
             res.redirect("/reseptit/"+reseptinumero);
             return "";

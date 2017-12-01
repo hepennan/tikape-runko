@@ -6,13 +6,6 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <style type="text/css">
-            
-            .pclass{
-                color:#FFFF00;
-            }
-
-        </style>
         <title>Reseptit</title>
         <meta charset="utf-8" />
     </head>
@@ -21,16 +14,17 @@ and open the template in the editor.
         <h1 th:text="${resepti.nimi}">Reseptin nimi</h1>
 
 
-        <h3>Ainekset</h3>
-        <ul>
-            <li th:each="rivi : ${ohjeRivit}">
-                <span th:text="${rivi.rivinumero}"><p>rivinumero</p></span>
-                <span th:text="${rivi.raakaAine.nimi}">raaka-aine nimi</span>
-                <span th:text="${rivi.maara}">määrä</span>
-            </li>
-        </ul>
+        <h3>Valmistusaineet</h3>
+        <table>
+            <tr th:each="rivi : ${ohjeRivit}">
+                <td><span th:text="${rivi.maara}">määrä</span></td>
+                <td>&nbsp;</td>
+                <td><span th:text="${rivi.raakaAine.nimi}">raaka-aine nimi</span></td>
+
+            </tr>
+        </table>
         <br/>
-        <h3>Ohje</h3>
+        <h3>Valmistusohje</h3>
         <span th:text="${resepti.ohje}">reseptin ohje</span>     
         
         <br/>

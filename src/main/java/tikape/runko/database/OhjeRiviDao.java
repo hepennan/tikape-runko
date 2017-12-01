@@ -36,7 +36,7 @@ public class OhjeRiviDao implements Dao<OhjeRivi, Integer>{
     public OhjeRivi findOne(Integer key) throws SQLException {
         OhjeRivi ohjeRivi = null;
         try(Connection conn = database.getConnection()){
-            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM ReseptiRaakaAine WHERE id = ?");
+            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM OhjeRivi WHERE id = ?");
             stmt.setInt(1, key);
             ResultSet res = stmt.executeQuery();
             while(res.next()){
@@ -55,7 +55,7 @@ public class OhjeRiviDao implements Dao<OhjeRivi, Integer>{
     public List<OhjeRivi> findAll() throws SQLException {
         List<OhjeRivi> ohjerivit = new ArrayList<>();
         try(Connection conn = database.getConnection()){
-            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM ReseptiRaakaAine");
+            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM OhjeRivi");
             ResultSet res = stmt.executeQuery();
             while(res.next()){
                 int raakaAineId = res.getInt("raaka_aine_id");
@@ -74,7 +74,7 @@ public class OhjeRiviDao implements Dao<OhjeRivi, Integer>{
 //palauttaa ohjerivin reseptiId:n
     public int getReseptiId(Integer key) throws SQLException{
         try(Connection conn = database.getConnection()){
-            PreparedStatement stmt = conn.prepareStatement("SELECT resepti_id FROM ReseptiRaakaAine WHERE id=?");
+            PreparedStatement stmt = conn.prepareStatement("SELECT resepti_id FROM OhjeRivi WHERE id=?");
             stmt.setInt(1, key);
             ResultSet res = stmt.executeQuery();
             while(res.next()){
@@ -89,7 +89,7 @@ public class OhjeRiviDao implements Dao<OhjeRivi, Integer>{
     //metodia kutsutaan silloin kun resepti deletoidaan
     public void deleteAllForResepti(Integer key) throws SQLException {
         try(Connection conn = database.getConnection()){
-            PreparedStatement stmt = conn.prepareStatement("DELETE FROM ReseptiRaakaAine WHERE resepti_id = ?");
+            PreparedStatement stmt = conn.prepareStatement("DELETE FROM OhjeRivi WHERE resepti_id = ?");
             stmt.setInt(1, key);
             stmt.executeUpdate();
             
@@ -100,7 +100,7 @@ public class OhjeRiviDao implements Dao<OhjeRivi, Integer>{
     public List<OhjeRivi> findAllForResepti (int reseptiId)throws SQLException {
         List<OhjeRivi> ohjerivit = new ArrayList<>();
         try(Connection conn = database.getConnection()){
-            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM ReseptiRaakaAine WHERE resepti_id = ? ORDER BY rivinumero ASC");
+            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM OhjeRivi WHERE resepti_id = ? ORDER BY rivinumero ASC");
             stmt.setInt(1, reseptiId);
             ResultSet res = stmt.executeQuery();
             while(res.next()){
@@ -131,7 +131,7 @@ public class OhjeRiviDao implements Dao<OhjeRivi, Integer>{
                 ohjerivi.setRivinumero(maxRivinumero);
             }
             paivitaOhjeriviNumerot(reseptiId,ohjerivi.getRivinumero(),1);
-            PreparedStatement stmt = conn.prepareStatement("INSERT INTO ReseptiRaakaAine(raaka_aine_id, resepti_id,maara,rivinumero)\n"+
+            PreparedStatement stmt = conn.prepareStatement("INSERT INTO OhjeRivi(raaka_aine_id, resepti_id,maara,rivinumero)\n"+
                     "VALUES (?,?,?,?)");
             stmt.setInt(1, ohjerivi.getRaakaAine().getId());
             stmt.setInt(2, reseptiId);
@@ -147,7 +147,7 @@ public class OhjeRiviDao implements Dao<OhjeRivi, Integer>{
     public void paivitaOhjeriviNumerot(int reseptiId, int start, int muutos) throws SQLException {
         try(Connection conn = database.getConnection()){
             PreparedStatement stmt;
-            stmt = conn.prepareStatement("UPDATE reseptiraakaaine SET rivinumero=rivinumero+? WHERE resepti_id=? AND rivinumero>=?");
+            stmt = conn.prepareStatement("UPDATE OhjeRivi SET rivinumero=rivinumero+? WHERE resepti_id=? AND rivinumero>=?");
             stmt.setInt(2, reseptiId);
             stmt.setInt(3, start);
             stmt.setInt(1, muutos);
@@ -165,7 +165,7 @@ public class OhjeRiviDao implements Dao<OhjeRivi, Integer>{
             int reseptiId = getReseptiId(key);
             //rivinumeroiden järjestys päivitetään
             paivitaOhjeriviNumerot(reseptiId, rivinumero,-1);
-            PreparedStatement stmt = conn.prepareStatement("DELETE FROM ReseptiRaakaAine WHERE id =?");
+            PreparedStatement stmt = conn.prepareStatement("DELETE FROM OhjeRivi WHERE id =?");
             stmt.setInt(1, key);
             stmt.executeUpdate();
             
@@ -177,7 +177,7 @@ public class OhjeRiviDao implements Dao<OhjeRivi, Integer>{
     
     public boolean reseptiRaakaAineExists(int reseptiId, int raakaAineId) throws SQLException {
         try(Connection conn = database.getConnection()){
-            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM ReseptiRaakaAine WHERE raaka_aine_id = ? AND resepti_id = ?");
+            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM OhjeRivi WHERE raaka_aine_id = ? AND resepti_id = ?");
             stmt.setInt(2, reseptiId);
             stmt.setInt(1, raakaAineId);
             ResultSet res = stmt.executeQuery();

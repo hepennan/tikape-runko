@@ -12,6 +12,7 @@ package tikape.runko.domain;
 public class RaakaAine {
     private String nimi;
     private int id;
+    private int reseptienMaara;
     
     public RaakaAine(int id, String nimi){
         this.id = id;
@@ -33,5 +34,14 @@ public class RaakaAine {
     public void setId(int id) {
         this.id = id;
     }
+
+    public int getReseptienMaara() {
+        return reseptienMaara;
+    }
+
+    public void setReseptienMaara(int reseptienMaara) {
+        this.reseptienMaara = reseptienMaara;
+    }
+    
     
 }

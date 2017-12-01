@@ -14,23 +14,29 @@ and open the template in the editor.
     <body>
         <h1>RAAKA-AINEET</h1>
         
-        <p>Raaka-aineet, jotka eiv&auml;t sis&auml;lly resepteihin</p>
-        <ul>
+        <h2><p>Raaka-aineet jotka eiv&auml;t viel&auml; sis&auml;lly mihink&auml;&auml;n reseptiin</p></h2>
+        <table>
             
-        <li th:each="raakaaine : ${raakaaineetEiKaytossa}"><span th:text="${raakaaine.nimi}">jotain?</span>
-            <form method="POST" action="/poistaraakaaine">
-            <input type ="submit" value="poista"/>
-            <input type ="hidden" name ="raakaaine" th:value ="${raakaaine.id}"/>
-            </form>
-        </li>
-        </ul>
+        <tr th:each="raakaaine : ${raakaaineetEiKaytossa}">
+            <td>
+                <span th:text="${raakaaine.nimi}">jotain?</span>
+            </td>
+            <td>
+                <form method="POST" action="/poistaraakaaine">
+                    <input type ="submit" value="poista"/>
+                    <input type ="hidden" name ="raakaaine" th:value ="${raakaaine.id}"/>
+                </form>
+            </td>
+        </tr>
+        </table>
 
-        <p>Raaka-aineet, jotka sis&auml;ltyv&auml;t resepteihin</p>
-        <ul>
+        <h2><p>Raaka-aineet, jotka sis&auml;ltyv&auml;t resepteihin</p></h2>
+        <table>
  
-        <li th:each="raakaaine : ${raakaaineetKaytossa}"><span th:text="${raakaaine.nimi}">jotain?</span>
-        </li>
-        </ul>        
+        <tr th:each="raakaaine : ${raakaaineetKaytossa}">
+            <td><span th:text="${raakaaine.nimi}">jotain?</span></td>
+        </tr>
+        </table>        
         <form method="POST" action ="/raakaaineet">
               <input type ="text" name ="nimi"/><br/>
             <input type ="submit" value ="Lis&auml;&auml;!"/>
