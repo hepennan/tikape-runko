@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.regex.Pattern;
 import tikape.runko.domain.OhjeRivi;
@@ -67,6 +68,24 @@ public class ReseptiDao implements Dao<Resepti, Integer>{
         return reseptit;
     }
 
+    //palauttaa listan resepteistä joissa raaka-aineen kuuluu reseptin aineksiin
+    public List<Resepti> findAllForRaakaAine(Integer raakaAineId) throws SQLException {
+        List<Resepti> reseptit = new ArrayList<>();
+        try(Connection conn= database.getConnection()){
+            PreparedStatement stmt = conn.prepareStatement("SELECT resepti_id FROM OhjeRivi where raaka_aine_id = ?");
+            stmt.setInt(1, raakaAineId);
+            ResultSet res = stmt.executeQuery();
+            while(res.next()){
+                int id = res.getInt("resepti_id");
+                reseptit.add(this.findOne(id));                
+            }
+        }
+        Collections.sort(reseptit);
+
+        
+        return reseptit;
+    }
+    
     //kutsuu metodia joka deletoi kaikki reseptiin linkatut ohjerivit ja deletoi reseptin
     @Override
     public void delete(Integer key) throws SQLException {

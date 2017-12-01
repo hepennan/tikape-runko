@@ -5,6 +5,8 @@
  */
 package tikape.runko.domain;
 
+import java.util.List;
+
 /**
  *
  * @author Helena
@@ -13,6 +15,7 @@ public class RaakaAine {
     private String nimi;
     private int id;
     private int reseptienMaara;
+    private List<Integer> reseptiIDeet;
     
     public RaakaAine(int id, String nimi){
         this.id = id;
@@ -41,6 +44,14 @@ public class RaakaAine {
 
     public void setReseptienMaara(int reseptienMaara) {
         this.reseptienMaara = reseptienMaara;
+    }
+
+    public List<Integer> getReseptiIDeet() {
+        return reseptiIDeet;
+    }
+
+    public void setReseptiIDeet(List<Integer> reseptiIDeet) {
+        this.reseptiIDeet = reseptiIDeet;
     }
     
     

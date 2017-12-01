@@ -34,6 +34,8 @@ public class RaakaAineDao implements Dao<RaakaAine,Integer>{
             while(res.next()){
                 String nimi = res.getString("nimi");
                 raakaAine = new RaakaAine(key, nimi);
+                raakaAine.setReseptiIDeet(sisaltyyResepteihin(key));
+                raakaAine.setReseptienMaara(raakaAine.getReseptiIDeet().size());
             }
             
         }
@@ -43,7 +45,20 @@ public class RaakaAineDao implements Dao<RaakaAine,Integer>{
         return raakaAine;
     }
 
-    
+    public List<Integer> sisaltyyResepteihin(Integer key) throws SQLException {
+        List<Integer> reseptiIdLista = new ArrayList<>();
+        try(Connection conn = database.getConnection()){
+            
+            PreparedStatement stmt = conn.prepareStatement("SELECT resepti_id FROM OhjeRivi WHERE raaka_aine_id = ?");
+            stmt.setInt(1, key);
+            ResultSet res = stmt.executeQuery();
+            while(res.next()){
+                reseptiIdLista.add(res.getInt("resepti_id"));
+            }
+        }
+        
+        return reseptiIdLista;
+    }    
 
 //palauttaa kaikki raakaAineet aakkosjärjestyksessä
     @Override
@@ -56,6 +71,8 @@ public class RaakaAineDao implements Dao<RaakaAine,Integer>{
                 String nimi = res.getString("nimi");
                 int id = res.getInt("id");
                 RaakaAine raakaAine = new RaakaAine(id,nimi);
+                raakaAine.setReseptiIDeet(sisaltyyResepteihin(id));
+                raakaAine.setReseptienMaara(raakaAine.getReseptiIDeet().size());
                 raakaAineet.add(raakaAine);
             }
         }
@@ -71,9 +88,13 @@ public class RaakaAineDao implements Dao<RaakaAine,Integer>{
                 String nimi = res.getString("nimi");
                 int id = res.getInt("id");
                 RaakaAine raakaAine = new RaakaAine(id,nimi);
-                if(sisaltyyJonkonkinReseptiin(id)){
+                raakaAine.setReseptiIDeet(sisaltyyResepteihin(id));
+                raakaAine.setReseptienMaara(sisaltyyResepteihin(id).size());
+                if(sisaltyyResepteihin(id).size()>0){
                     raakaAineet.add(raakaAine);
                 }
+//                System.out.println("Raaka-aine " + raakaAine.getNimi() + " sisältyyy " + raakaAine.getReseptienMaara() + " reseptiin");
+//                System.out.println(raakaAine.getReseptiIDeet().size());
                 
             }
         }
@@ -89,7 +110,7 @@ public class RaakaAineDao implements Dao<RaakaAine,Integer>{
                 String nimi = res.getString("nimi");
                 int id = res.getInt("id");
                 RaakaAine raakaAine = new RaakaAine(id,nimi);
-                if(!sisaltyyJonkonkinReseptiin(id)){
+                if(sisaltyyResepteihin(id).size()==0){
                     raakaAineet.add(raakaAine);
                 }
                 
@@ -99,25 +120,11 @@ public class RaakaAineDao implements Dao<RaakaAine,Integer>{
     }
         
     
-    
-    public boolean sisaltyyJonkonkinReseptiin(Integer key) throws SQLException {
-        try(Connection conn = database.getConnection()){
-            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM OhjeRivi WHERE raaka_aine_id = ?");
-            stmt.setInt(1, key);
-            ResultSet res = stmt.executeQuery();
-            if(res.next()){
-                return true;
-            }
-        }
-        
-        return false;
-    }
-
     //deletoi raakaAineen jos sitä ei ole linkattu johonkin reseptiin
     @Override
     public void delete(Integer key) throws SQLException {
         try(Connection conn = database.getConnection()){
-            if(raakaAineKuuluuReseptiin(key)){
+            if(sisaltyyResepteihin(key).size()>0){
                 return;
             }
             PreparedStatement stmt = conn.prepareStatement("DELETE FROM RaakaAine WHERE id = ?");
@@ -126,18 +133,6 @@ public class RaakaAineDao implements Dao<RaakaAine,Integer>{
         }
     }
     
-    //tsekkaa kuuluuko raaka-aine johonkin reseptiin
-    public boolean raakaAineKuuluuReseptiin(Integer key)throws SQLException{
-        try(Connection conn = database.getConnection()){
-            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM OhjeRivi WHERE raaka_aine_id = ?");
-            stmt.setInt(1, key);
-            ResultSet res = stmt.executeQuery();
-            if(res.next()){
-                return true;
-            }
-            return false;
-        }
-    }
     
     //lisää raaka-aineen jos sitä ei löydy taulusta
     public RaakaAine add(RaakaAine lisattava) throws SQLException {

@@ -31,14 +31,21 @@ and open the template in the editor.
         </table>
 
         <h2><p>Raaka-aineet, jotka sis&auml;ltyv&auml;t resepteihin</p></h2>
+
         <table>
- 
+            <tr><th>raaka-aine</th><th>reseptit</th></tr>
         <tr th:each="raakaaine : ${raakaaineetKaytossa}">
-            <td><span th:text="${raakaaine.nimi}">jotain?</span></td>
+            <td><span th:text="${raakaaine.nimi}">nimi?</span></td>
+            <td><a th:href="@{~/reseptitraakaaineelle/{id}(id=${raakaaine.id})}"><span th:text="${raakaaine.reseptienMaara}">reseptien maara?</span></a></td>
         </tr>
-        </table>        
+        </table>       
+        
+  <br/>
+   <br/>
+    <br/>
+    <h2>Anna raaka-aineen nimi</h2>    
         <form method="POST" action ="/raakaaineet">
-              <input type ="text" name ="nimi"/><br/>
+            <input type ="text" name ="nimi"/><br/>
             <input type ="submit" value ="Lis&auml;&auml;!"/>
         </form>
         <br/>

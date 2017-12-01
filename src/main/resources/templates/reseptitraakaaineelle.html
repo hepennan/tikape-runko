@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Reseptit</title>
+        <meta charset="utf-8" />
+
+    </head>
+    <body>
+        <div>
+        
+        <h1>Raaka-aine <span th:text="${raakaaine.nimi}" style="color:Tomato;">Raaka-aineen nimi</span> esiintyy resepteiss&auml;</h1>
+        <ol>
+
+        <li th:each="resepti : ${reseptit}"><a th:href="@{~/resepti_view/{id}(id=${resepti.id})}"><span th:text="${resepti.nimi}">jotain?</span></a></li>
+        </ol>
+        
+        </div>
+        
+        <br/>
+        <br/>
+     <div>
+         <a href="/">Listaa kaikki reseptit</a>&nbsp;
+        <a href="/raakaaineet">Tarkastele ja p&auml;ivit&auml; raaka-aineita</a>
+    </div>       
+
+    </body>
+</html>

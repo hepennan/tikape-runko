@@ -12,7 +12,7 @@ import java.util.List;
  *
  * @author Helena
  */
-public class Resepti {
+public class Resepti implements Comparable{
     private String nimi;
     private int id;
     private String ohje = "";
@@ -63,6 +63,12 @@ public class Resepti {
 
     public void setOhjerivit(List<OhjeRivi> ohjerivit) {
         this.ohjerivit = ohjerivit;
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        Resepti toinen = (Resepti)o;
+        return this.getNimi().compareTo(toinen.getNimi());
     }
     
 }

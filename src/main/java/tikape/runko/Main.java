@@ -129,6 +129,16 @@ public class Main {
             return new ModelAndView(map, "resepti");
         }, new ThymeleafTemplateEngine());
 
+        //tarkastele reseptejä, johon raaka-aine sisältyy
+        Spark.get("/reseptitraakaaineelle/:id", (req, res) -> {
+            System.out.println("reseptit raakaaineille");
+            HashMap map = new HashMap<>();
+            Integer raakaAineId = Integer.parseInt(req.params(":id"));
+            map.put("raakaaine", raakaAineDao.findOne(raakaAineId));
+            map.put("reseptit", reseptiDao.findAllForRaakaAine(raakaAineId));
+            return new ModelAndView(map, "reseptitraakaaineelle");
+        }, new ThymeleafTemplateEngine());
+        
         //Tarkastele reseptiä view moodissa
         Spark.get("/resepti_view/:id", (req, res) -> {
             HashMap map = new HashMap<>();
