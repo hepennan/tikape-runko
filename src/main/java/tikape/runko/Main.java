@@ -45,8 +45,8 @@ public class Main {
         //Raaka-aineiden tarkastelu ja muokkaus        
         get("/raakaaineet", (req, res) -> {
             HashMap map = new HashMap<>();
-            map.put("raakaaineet", raakaAineDao.findAll());
-
+            map.put("raakaaineetKaytossa", raakaAineDao.findAllKaytossa());
+            map.put("raakaaineetEiKaytossa", raakaAineDao.findAllEiKaytossa());
             return new ModelAndView(map, "raakaaineet");
         }, new ThymeleafTemplateEngine());
 
@@ -102,6 +102,7 @@ public class Main {
         //Ohjeen lisäys/päivitys reseptiin        
         Spark.post("/lisaaohje", (req,res)->{
             int reseptinumero = Integer.parseInt(req.queryParams("reseptinumero"));
+            System.out.println(req.queryParams("ohje"));
             reseptiDao.paivitaReseptinOhje(reseptinumero, req.queryParams("ohje"));
             res.redirect("/reseptit/"+reseptinumero);
             return "";

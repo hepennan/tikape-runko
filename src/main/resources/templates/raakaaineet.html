@@ -13,16 +13,24 @@ and open the template in the editor.
 
     <body>
         <h1>RAAKA-AINEET</h1>
-        <ol>
+        
+        <p>Raaka-aineet, jotka eiv&auml;t sis&auml;lly resepteihin</p>
+        <ul>
             
-        <li th:each="raakaaine : ${raakaaineet}"><span th:text="${raakaaine.nimi}">jotain?</span>
+        <li th:each="raakaaine : ${raakaaineetEiKaytossa}"><span th:text="${raakaaine.nimi}">jotain?</span>
             <form method="POST" action="/poistaraakaaine">
             <input type ="submit" value="poista"/>
             <input type ="hidden" name ="raakaaine" th:value ="${raakaaine.id}"/>
             </form>
         </li>
-        </ol>
-        
+        </ul>
+
+        <p>Raaka-aineet, jotka sis&auml;ltyv&auml;t resepteihin</p>
+        <ul>
+ 
+        <li th:each="raakaaine : ${raakaaineetKaytossa}"><span th:text="${raakaaine.nimi}">jotain?</span>
+        </li>
+        </ul>        
         <form method="POST" action ="/raakaaineet">
               <input type ="text" name ="nimi"/><br/>
             <input type ="submit" value ="Lis&auml;&auml;!"/>

@@ -60,6 +60,57 @@ public class RaakaAineDao implements Dao<RaakaAine,Integer>{
         return raakaAineet;
     }
 
+    public List<RaakaAine> findAllKaytossa() throws SQLException {
+        List<RaakaAine> raakaAineet = new ArrayList<>();
+        try(Connection conn = database.getConnection()){
+            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM RaakaAine ORDER BY nimi ASC");
+            ResultSet res = stmt.executeQuery();
+            while(res.next()){
+                String nimi = res.getString("nimi");
+                int id = res.getInt("id");
+                RaakaAine raakaAine = new RaakaAine(id,nimi);
+                if(sisaltyyJonkonkinReseptiin(id)){
+                    raakaAineet.add(raakaAine);
+                }
+                
+            }
+        }
+        return raakaAineet;
+    }
+    
+       public List<RaakaAine> findAllEiKaytossa() throws SQLException {
+        List<RaakaAine> raakaAineet = new ArrayList<>();
+        try(Connection conn = database.getConnection()){
+            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM RaakaAine ORDER BY nimi ASC");
+            ResultSet res = stmt.executeQuery();
+            while(res.next()){
+                String nimi = res.getString("nimi");
+                int id = res.getInt("id");
+                RaakaAine raakaAine = new RaakaAine(id,nimi);
+                if(!sisaltyyJonkonkinReseptiin(id)){
+                    raakaAineet.add(raakaAine);
+                }
+                
+            }
+        }
+        return raakaAineet;
+    }
+        
+    
+    
+    public boolean sisaltyyJonkonkinReseptiin(Integer key) throws SQLException {
+        try(Connection conn = database.getConnection()){
+            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM ReseptiRaakaAine WHERE raaka_aine_id = ?");
+            stmt.setInt(1, key);
+            ResultSet res = stmt.executeQuery();
+            if(res.next()){
+                return true;
+            }
+        }
+        
+        return false;
+    }
+
     //deletoi raakaAineen jos sitä ei ole linkattu johonkin reseptiin
     @Override
     public void delete(Integer key) throws SQLException {

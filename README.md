@@ -21,12 +21,10 @@ Sivu näyttää reseptin nimen, ainekset ja yleisohjeen. Ainesten järjestys nou
 
 ## 3. Raaka-aineiden tarkastelu ja muokkaus
 
-Raaka-aineet sivulla kaikki raaka-aineet on listattuna aakkosjärjestyksessä. Käyttäjä voi lisätä uusia raaka-aineita ja poistaa jo tallennettuja.
+Raaka-aineet sivulla on listaus uusista raaka-aineista, joitä ei vielä ole linkattu mihinkään reseptiin. Näitä raaka-aineita on mahdollista poistaa listalta.
+Toinen lista näyttää ne raaka-aineet, jotka on jo lisätty johonkin reseptiin. Näiden poistaminen ei ole mahdollista.
 
-Raaka-ainetta poistettaessa sovellus tarkistaa onko kyseinen raaka-aine jo linkattu johonkin reseptiin. Jos on, poistamista ei tehdä. 
-Huom. poista-nappi on kuitenkin näkyvissä raaka-aineen kohdalla.
-
-Raaka-ainetta lisätessä sovellus tarkistaa onko saman niminen raaka-aine tallennettu jo aikaisemmin. Jos on, lisääminen ei onnistu.
+Käyttäjä voi myös lisätä uuden raaka-aineen.
 
 ## 4. Reseptien listaus "edit" moodissa
 
