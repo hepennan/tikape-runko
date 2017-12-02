@@ -19,6 +19,8 @@ Etusivulta on myös linkki reseptien päivitykseen ja raaka-aineiden tarkasteluu
 
 Sivu näyttää reseptin nimen, ainekset ja yleisohjeen. Ainesten järjestys noudattaa reseptin kirjoittajan määrittelemää järjestystä.
 
+Sivulta on linkit kyseisen ohjeen päivitykseen, raaka-aineiden tarkasteluun/lisäykseen ja reseptilistaukseen.
+
 ## 3. Raaka-aineiden tarkastelu ja muokkaus
 
 Raaka-aineet sivulla on listaus uusista raaka-aineista, joitä ei vielä ole linkattu mihinkään reseptiin. Näitä raaka-aineita on mahdollista poistaa listalta.

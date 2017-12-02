@@ -9,24 +9,45 @@ and open the template in the editor.
     <head>
         <title>Reseptit</title>
         <meta charset="utf-8" />
+        <style>
+            .header {
+                width: 100%;
+                color: navy;
+                background-color:rgb(240, 240, 240);
+                border: 2px solid rgb(230, 230, 230);
+                padding: 5px;
+                text-align: center;
+            }
+            .body {
+
+                color: navy;
+                padding: 5px;
+                text-align: left;
+            }
+        </style>         
     </head>
 
     <body>
-        <h1>RESEPTIT</h1>
-        <ol>
-            <li th:each="resepti : ${reseptit}"><a th:href="@{~/reseptit/{id}(id=${resepti.id})}"><span th:text="${resepti.nimi}">jotain?</span></a> 
-        <form th:action="@{~/reseptit/{id}/poista(id=${resepti.id})}" method="post">
-            <input type="submit" name = "poista" value="Poista"/>
-        </form> 
-            </li>
-        </ol>
-        <br/>
-        
-        <form method="POST" action ="/reseptit/lisaa">
-              <input type ="text" name ="nimi"/><br/>
-            <input type ="submit" value ="Lis&auml;&auml; uusi resepti!"/>
-        </form>
-        <br/>
-<a href="/raakaaineet"><p>Tarkastele ja lis&auml;&auml; aineksia</p></a>
+        <div class="header">
+            <a href="/">Reseptilistaukseen</a>&nbsp;
+            <a href="/raakaaineet">Tarkastele ja lis&auml;&auml; raaka-aineita</a>            
+        </div>
+        <div class="body">
+            <h1>RESEPTIT</h1>
+            <ol>
+                <li th:each="resepti : ${reseptit}"><a th:href="@{~/reseptit/{id}(id=${resepti.id})}"><span th:text="${resepti.nimi}">jotain?</span></a> 
+            <form th:action="@{~/reseptit/{id}/poista(id=${resepti.id})}" method="post">
+                <input type="submit" name = "poista" value="Poista"/>
+            </form> 
+                </li>
+            </ol>
+            <br/>
+
+            <form method="POST" action ="/reseptit/lisaa">
+                  <input type ="text" name ="nimi"/><br/>
+                <input type ="submit" value ="Lis&auml;&auml; uusi resepti!"/>
+            </form>
+            <br/>
+        </div>
     </body>
 </html>

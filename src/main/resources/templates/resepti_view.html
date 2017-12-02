@@ -8,31 +8,49 @@ and open the template in the editor.
     <head>
         <title>Reseptit</title>
         <meta charset="utf-8" />
+        <style>
+            .header {
+                width: 100%;
+                color: navy;
+                background-color:rgb(240, 240, 240);
+                border: 2px solid rgb(230, 230, 230);
+                padding: 5px;
+                text-align: center;
+            }
+            .body {
+
+                color: navy;
+                padding: 5px;
+                text-align: left;
+            }
+        </style> 
     </head>
     
     <body>
-        <h1 th:text="${resepti.nimi}">Reseptin nimi</h1>
-
-
-        <h3>Valmistusaineet</h3>
-        <table>
-            <tr th:each="rivi : ${ohjeRivit}">
-                <td><span th:text="${rivi.maara}">määrä</span></td>
-                <td>&nbsp;</td>
-                <td><span th:text="${rivi.raakaAine.nimi}">raaka-aine nimi</span></td>
-
-            </tr>
-        </table>
-        <br/>
-        <h3>Valmistusohje</h3>
-        <span th:text="${resepti.ohje}">reseptin ohje</span>     
+        <div class="header">
         
-        <br/>
-        <br/>
-        
-        <a th:href="@{~/reseptit/{id}(id=${resepti.id})}">P&auml;ivit&auml; ohjetta</a>
-        <a href="/raakaaineet"><p>Tarkastele ja lis&auml;&auml; aineksia</p></a>
-        <a href="/"><p>Reseptilistaukseen</p></a>
+            <a th:href="@{~/reseptit/{id}(id=${resepti.id})}">P&auml;ivit&auml; ohjetta</a>&nbsp;
+            <a href="/raakaaineet">Tarkastele ja lis&auml;&auml; raaka-aineita</a>&nbsp;
+            <a href="/">Reseptilistaukseen</a>            
+        </div>
+        <div class="body">
+            <h1 th:text="${resepti.nimi}">Reseptin nimi</h1>
+            <h3>Valmistusaineet</h3>
+            <table>
+                <tr th:each="rivi : ${ohjeRivit}">
+                    <td><span th:text="${rivi.maara}">määrä</span></td>
+                    <td>&nbsp;</td>
+                    <td><span th:text="${rivi.raakaAine.nimi}">raaka-aine nimi</span></td>
+
+                </tr>
+            </table>
+            <br/>
+            <h3>Valmistusohje</h3>
+            <span th:text="${resepti.ohje}">reseptin ohje</span>     
+
+            <br/>
+            <br/>
+        </div>
 
     </body>
 </html>

@@ -8,65 +8,88 @@ and open the template in the editor.
     <head>
         <title>Reseptit</title>
         <meta charset="utf-8" />
+        <style>
+            .header {
+                width: 100%;
+                color: navy;
+                background-color:rgb(240, 240, 240);
+                border: 2px solid rgb(230, 230, 230);
+                padding: 5px;
+                text-align: center;
+            }
+            .body {
+
+                color: navy;
+                padding: 5px;
+                text-align: left;
+            }
+        </style>        
     </head>
     
     <body>
-        <h1 th:text="${resepti.nimi}">Reseptin nimi</h1>
+        <div class ="header">
+            <a href="/">Reseptilistaukseen</a>&nbsp;
+            <a href="/raakaaineet">Tarkastele ja lis&auml;&auml; raaka-aineita</a>
+        </div>
+        <div class ="body">
+            <h1 th:text="${resepti.nimi}">Reseptin nimi</h1>
+            <h3>Valmistusaineet</h3>
+            <table>
+                <tr th:each="rivi : ${ohjeRivit}">
+                    <form action="/poistarivi" method="POST">
+                        <td><span th:text="${rivi.rivinumero}" style="color:Tomato;">rivinumero</span></td>
+                        <td><span th:text="${rivi.raakaAine.nimi}">raaka-aine nimi</span></td>
+                        <td><span th:text="${rivi.maara}">määrä/kommentti</span></td>
+                    <input type ="hidden" name="riviid" th:value ="${rivi.id}"/>
 
+                    <input type="hidden" name="reseptinumero" th:value="${resepti.id}"/>
+                    <td><input type ="submit" value="Poista"/></td>
+                    </form>
 
-        <h3>Valmistusaineet</h3>
+                </tr>
+            </table> 
+
+            <br/>
+            <h3>Valmistusohje</h3>
+            <span th:text="${resepti.ohje}">reseptin ohje</span>
+
+            <br/>
+            <br/>
+            <table>
+                <tr>
+                    <th>Rivinumero</th>
+                    <th>Raaka-aine</th>
+                    <th>M&auml;&auml;r&auml;/kommentti</th>
+
+                    <th></th>
+                </tr>
+                <tr>
+                    <form action="/lisaarivi" method="POST">
+                        <td><input type ="text" name="rivinumero"/><input type="hidden" name="reseptinumero" th:value="${resepti.id}"/></td>
+                        <td><select name="raakaAine">
+                            <option th:each="raakaAine: ${raakaAineet}" th:value="${raakaAine.id}" th:text="${raakaAine.nimi}">
+                                raaka-aine
+                            </option>
+                        </select></td>
+                        <td><input type ="text" name="maara"/></td>
+                        
+                        <td><input type="submit" value="Lis&auml;&auml; ohjerivi!"/></td>
+
+                    </form> 
+                </tr>
+
+            </table>
         
-        
-        <table>
-            <tr th:each="rivi : ${ohjeRivit}">
-                <form action="/poistarivi" method="POST">
-                    <td><span th:text="${rivi.rivinumero}">rivinumero</span></td>
-                    <td><span th:text="${rivi.raakaAine.nimi}">raaka-aine nimi</span></td>
-                    <td><span th:text="${rivi.maara}">määrä</span></td>
-                <input type ="hidden" name="riviid" th:value ="${rivi.id}"/>
+            <form action = "/lisaaohje" method="POST">
+                <b>Valmistusohje :</b> <br />
+               <textarea rows = "5" cols = "80" name = "ohje" th:text="${resepti.ohje}">
 
+               </textarea>
                 <input type="hidden" name="reseptinumero" th:value="${resepti.id}"/>
-                <td><input type ="submit" value="Poista"/></td>
-                </form>
-                
-            </tr>
-        </table> 
-        
-        <br/>
-        <h3>Valmistusohje</h3>
-        <span th:text="${resepti.ohje}">reseptin ohje</span>
-        
-        <br/>
-        <br/>
-        <table>
-            <th>Raaka-aine</th><th>M&auml;&auml;r&auml;</th><th>Rivinumero</th><th></th>
-            <tr>
-                <form action="/lisaarivi" method="POST">
-                    <td><select name="raakaAine">
-                        <option th:each="raakaAine: ${raakaAineet}" th:value="${raakaAine.id}" th:text="${raakaAine.nimi}">
-                            raaka-aine
-                        </option>
-                    </select></td>
-                    <td><input type ="text" name="maara"/></td>
-                    <td><input type ="text" name="rivinumero"/><input type="hidden" name="reseptinumero" th:value="${resepti.id}"/></td>
-                    <td><input type="submit" value="Lis&auml;&auml; ohjerivi!"/></td>
-                    
-                </form> 
-            </tr>
-            
-        </table>
-        
-      <form action = "/lisaaohje" method="POST">
-          <b>Valmistusohje :</b> <br />
-         <textarea rows = "5" cols = "80" name = "ohje" th:text="${resepti.ohje}">
-           
-         </textarea>
-          <input type="hidden" name="reseptinumero" th:value="${resepti.id}"/>
-          <input type="submit" value="P&auml;ivit&auml;!"/>
-      </form>
-        <a href="/"><p>Reseptilistaukseen</p></a>
-        <a href="/raakaaineet"><p>Tarkastele ja lis&auml;&auml; aineksia</p></a>
- 
+                <input type="submit" value="P&auml;ivit&auml;!"/>
+            </form>
 
+ 
+        </div>
     </body>
 </html>

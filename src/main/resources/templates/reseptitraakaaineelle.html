@@ -8,25 +8,37 @@ and open the template in the editor.
     <head>
         <title>Reseptit</title>
         <meta charset="utf-8" />
+        <style>
+            .header {
+                width: 100%;
+                color: navy;
+                background-color:rgb(240, 240, 240);
+                border: 2px solid rgb(230, 230, 230);
+                padding: 5px;
+                text-align: center;
+            }
+            .body {
 
+                color: navy;
+                padding: 5px;
+                text-align: left;
+            }
+        </style>  
     </head>
     <body>
-        <div>
-        
-        <h1>Raaka-aine <span th:text="${raakaaine.nimi}" style="color:Tomato;">Raaka-aineen nimi</span> esiintyy resepteiss&auml;</h1>
-        <ol>
+        <div class="header">
+            <a href="/">Listaa kaikki reseptit</a>&nbsp;
+            <a href="/raakaaineet">Tarkastele ja p&auml;ivit&auml; raaka-aineita</a>
+        </div>  
+        <div class="body">
 
-        <li th:each="resepti : ${reseptit}"><a th:href="@{~/resepti_view/{id}(id=${resepti.id})}"><span th:text="${resepti.nimi}">jotain?</span></a></li>
-        </ol>
-        
+            <h1>Raaka-aine <span th:text="${raakaaine.nimi}" style="color:Tomato;">Raaka-aineen nimi</span> esiintyy resepteiss&auml;:</h1>
+            <ol>
+
+            <li th:each="resepti : ${reseptit}"><a th:href="@{~/resepti_view/{id}(id=${resepti.id})}"><span th:text="${resepti.nimi}">jotain?</span></a></li>
+            </ol>
+
         </div>
-        
-        <br/>
-        <br/>
-     <div>
-         <a href="/">Listaa kaikki reseptit</a>&nbsp;
-        <a href="/raakaaineet">Tarkastele ja p&auml;ivit&auml; raaka-aineita</a>
-    </div>       
 
     </body>
 </html>

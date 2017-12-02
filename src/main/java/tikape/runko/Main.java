@@ -131,7 +131,6 @@ public class Main {
 
         //tarkastele reseptejä, johon raaka-aine sisältyy
         Spark.get("/reseptitraakaaineelle/:id", (req, res) -> {
-            System.out.println("reseptit raakaaineille");
             HashMap map = new HashMap<>();
             Integer raakaAineId = Integer.parseInt(req.params(":id"));
             map.put("raakaaine", raakaAineDao.findOne(raakaAineId));
